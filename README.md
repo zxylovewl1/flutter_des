@@ -19,6 +19,8 @@ Operation: (android)PKCS5Padding (ios)kCCOptionPKCS7Padding
 http://tool.chacuo.net/cryptdes
 
 ## Getting Started
+上传插件：
+flutter packages pub publish --server=https://pub.dartlang.org
 
 ### Add dependency
 
