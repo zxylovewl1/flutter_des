@@ -34,7 +34,7 @@ public class FlutterDesPlugin implements MethodCallHandler
                 String cmd = call.argument("cmd").toString();
                 String sessionId = call.argument("sessionid").toString();
 
-                int count = call.argument("count");
+                int count = call.argument("_count");
                 String majorMinorCmd = "cmd=" + cmd + (isEmpty(_major) ? "" : "&_major=" + _major) + (isEmpty(_minor) ? "" : "&_minor=" + _minor);
 
                 String secretKey = ((!isEmpty(sessionId) ? sessionId.substring(0, 2) : "") + count + "-whzbcx").substring(0, 8);
