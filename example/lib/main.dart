@@ -55,9 +55,14 @@ class _MyAppState extends State<MyApp>
     // Platform messages may fail, so we use a try/catch PlatformException.
     try
     {
+//      platformVersion =
+//      await FlutterDes.encrypt(
+//          {'_major': 98, '_minor': 23, 'cmd': 'query', 'sessionid': '7D2907E8DF8E6A200CF985ED6AB5536D', '_count': 2});
+
+//      {cmd: get, sessionid: AB5E98584AAE0E1302F34F1CD5B85100, _count: 4}
       platformVersion =
       await FlutterDes.encrypt(
-          {'_major': 98, '_minor': 23, 'cmd': 'query', 'sessionid': '7D2907E8DF8E6A200CF985ED6AB5536D', 'count': 2});
+          {'cmd': 'get', 'sessionid': 'AB5E98584AAE0E1302F34F1CD5B85100', '_count': 4});
     }
     on PlatformException
     {
