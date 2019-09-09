@@ -16,7 +16,7 @@
         NSInteger _major = call.arguments[@"_major"];
         NSInteger _minor = call.arguments[@"_minor"];
         NSString *cmd = call.arguments[@"cmd"];
-        NSString *sessionId = call.arguments[@"sessionid"];
+        NSString *sessionid = call.arguments[@"sessionid"];
         NSInteger count = call.arguments[@"count"];
         
         NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -24,11 +24,10 @@
                               _major, @"_major",
                               _minor, @"_minor",
                               count, @"count",
+                              sessionid, @"sessionid",
                               nil];
-        NSLog(@"---加密前的data---:%@",data);
         data = [EncryptDict encryptDict:data];
-        NSLog(@"---加密之后的data---:%@",data);
-        result([data objectForKey:@"code"]);
+        result([data objectForKey:@"_code"]);
     } else {
         result(FlutterMethodNotImplemented);
     }

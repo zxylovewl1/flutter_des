@@ -14,7 +14,7 @@
 +(NSString *)makeKey
 {
     NSString *secretKey =@"";
-    NSString *sessionId = @"sessionId";
+    NSString *sessionId = @"sessionid";
     NSInteger currentCount = 1;
     NSInteger count =  ++currentCount;
     
@@ -27,15 +27,16 @@
 }
 
 
-+(NSString *)makeKeyCount:(NSInteger)count
++(NSString *)makeKeyCount:(NSDictionary *)dict
 {
     NSString *secretKey =@"";
-    NSString *sessionId = @"sessionId";
+    NSString *sessionId = [dict objectForKey:@"sessionid"];
+    NSInteger count =  [dict objectForKey:@"count"];
    
     if (sessionId != nil) {
         secretKey = [NSString stringWithFormat:@"%@%ld-whzbcx",[sessionId substringToIndex:2],count];
     }
-    //取前8位作为秘钥
+    
     secretKey = [secretKey substringToIndex:8];
     return secretKey;
 }
@@ -44,11 +45,10 @@
 //请求参数加密
 +(NSDictionary *)encryptDict:(NSDictionary *)dict
 {
-    NSString *secretKey = [self makeKeyCount:[dict objectForKey:@"count"]];
+    NSString * secretKey = [self makeKeyCount:dict];
     NSArray *allkeyInArray = [dict allKeys];
     NSString *code = @"";
-    NSString *_exp = @"";
-    //加密cmd、_major、_minor、_exp
+    //加密cmd、_major、_minor
     if ([allkeyInArray containsObject:@"cmd"]) {
         code = [NSString stringWithFormat:@"cmd=%@",[dict objectForKey:@"cmd"] ];
     }
@@ -63,11 +63,10 @@
     
     code = [Base64DES base64StringFromText:code key:secretKey];
     
- 
-    
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                          code, @"code",
-                          nil];
+                                 code, @"_code",
+                                 [dict objectForKey:@"sessionid"],@"sessionid",
+                                 nil];
     //剩余参数参数加入到字典中
     for (NSString *key in allkeyInArray) {
         if (![key isEqualToString:@"cmd"]&&
