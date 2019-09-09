@@ -11,27 +11,11 @@
 
 @implementation EncryptDict
 
-+(NSString *)makeKey
-{
-    NSString *secretKey =@"";
-    NSString *sessionId = @"sessionid";
-    NSInteger currentCount = 1;
-    NSInteger count =  ++currentCount;
-    
-    if (sessionId != nil) {
-        secretKey = [NSString stringWithFormat:@"%@%ld-whzbcx",[sessionId substringToIndex:2],count];
-    }
-    //取前8位作为秘钥
-    secretKey = [secretKey substringToIndex:8];
-    return secretKey;
-}
-
-
 +(NSString *)makeKeyCount:(NSDictionary *)dict
 {
     NSString *secretKey =@"";
     NSString *sessionId = [dict objectForKey:@"sessionid"];
-    NSInteger count =  [dict objectForKey:@"count"];
+    NSInteger count =  [[dict objectForKey:@"count"] intValue];
    
     if (sessionId != nil) {
         secretKey = [NSString stringWithFormat:@"%@%ld-whzbcx",[sessionId substringToIndex:2],count];
@@ -62,7 +46,7 @@
     }
     
     code = [Base64DES base64StringFromText:code key:secretKey];
-    
+
     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                  code, @"_code",
                                  [dict objectForKey:@"sessionid"],@"sessionid",
