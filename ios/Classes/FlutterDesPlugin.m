@@ -17,7 +17,7 @@
         NSObject * _minor = call.arguments[@"_minor"];
         NSString *cmd = call.arguments[@"cmd"];
         NSString *sessionid = call.arguments[@"sessionid"];
-        NSInteger count = call.arguments[@"count"];
+        NSInteger count = call.arguments[@"_count"];
         
         NSMutableDictionary *data = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                               cmd, @"cmd",
