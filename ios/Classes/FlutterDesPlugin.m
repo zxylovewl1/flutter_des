@@ -13,19 +13,26 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
     if ([@"encrypt" isEqualToString:call.method]) {
-        NSInteger _major = call.arguments[@"_major"];
-        NSInteger _minor = call.arguments[@"_minor"];
+        NSObject * _major = call.arguments[@"_major"];
+        NSObject * _minor = call.arguments[@"_minor"];
         NSString *cmd = call.arguments[@"cmd"];
         NSString *sessionid = call.arguments[@"sessionid"];
         NSInteger count = call.arguments[@"count"];
         
-        NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                               cmd, @"cmd",
-                              _major, @"_major",
-                              _minor, @"_minor",
                               count, @"count",
                               sessionid, @"sessionid",
                               nil];
+        if(_major != nil)
+        {
+            [data setObject:_major forKey:@"_major"];
+        }
+        if(_minor != nil)
+        {
+            [data setObject:_minor forKey:@"_minor"];
+        }
+        
         data = [EncryptDict encryptDict:data];
         result([data objectForKey:@"_code"]);
     } else {
