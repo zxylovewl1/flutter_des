@@ -29,13 +29,13 @@ public class FlutterDesPlugin implements MethodCallHandler
         switch (call.method)
         {
             case "encrypt":
-                int _major = call.argument("_major");
-                int _minor = call.argument("_minor");
+                Object _major = call.argument("_major");
+                Object _minor = call.argument("_minor");
                 String cmd = call.argument("cmd").toString();
                 String sessionId = call.argument("sessionid").toString();
 
                 int count = call.argument("count");
-                String majorMinorCmd = "cmd="+ cmd + "&_major=" + _major + "&_minor=" + _minor;
+                String majorMinorCmd = "cmd=" + cmd + (isEmpty(_major) ? "" : "&_major=" + _major) + (isEmpty(_minor) ? "" : "&_minor=" + _minor);
 
                 String secretKey = ((!isEmpty(sessionId) ? sessionId.substring(0, 2) : "") + count + "-whzbcx").substring(0, 8);
                 DesUtil.setPassword(secretKey);
